@@ -1,0 +1,27 @@
+.filters-container {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-button {
+    background-color: #0f2d37;
+    color: var(--color-white);
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 600;
+
+    padding: 8px 15px;
+
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.filter-button:not(.filter-button-active):hover {
+    background-color: #555e61;
+}
+
+.filter-button-active {
+    background-color: var(--color-primary-2);
+    color: var(--color-white);
+}

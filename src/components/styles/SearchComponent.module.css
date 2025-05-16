@@ -1,0 +1,21 @@
+.search-component {
+    background-color: var(--color-secondary-2);
+
+    width: 100%;
+
+    padding: 30px 25px;
+}
+
+.search-component h1 {
+    color: var(--color-primary-1);
+    font-size: 1.2rem;
+
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.search-component hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: 20px 0;
+}

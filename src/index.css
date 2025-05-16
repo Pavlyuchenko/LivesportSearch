@@ -2,7 +2,10 @@
     --color-primary: #ff0046;
     --color-primary-2: #c80037;
     --color-white: #eee;
-    --color-secondary-1: #00141e;
+    --color-border: #999999;
+    --color-secondary-1: #010a0f;
+    --color-secondary-2: #00141e;
+    --blueish: #01203e;
 
     --border-radius: 8px;
     --base-padding: 16px 12px;
