@@ -3,11 +3,11 @@ import SearchResults from "@components/SearchResults";
 import Filters from "@components/Filters";
 import styles from "./styles/SearchComponent.module.css";
 import { getPathFromParams } from "../utils/apiUtils";
-import { handleApiError } from "./errors/errors";
 import type { SearchResponse, SportCategory } from "../types/apiTypes";
 import { useEffect, useState } from "react";
 import { transformData } from "../utils/transformData";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import Dialog from "./Dialog";
 
 // as specified in the documentation
 const typeIdsMap = {
@@ -30,6 +30,8 @@ export type SearchStateType = "LOADED" | "LOADING" | "NOT_FOUND" | "ENTER_TEXT";
 function SearchComponent() {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
+
+    const [error, setError] = useState<string | null>(null);
 
     let [searchState, setSearchState] = useState<SearchStateType>("ENTER_TEXT");
     let [searchTerm, setSearchTerm] = useState<string>(
@@ -71,7 +73,8 @@ function SearchComponent() {
         return fetch(route).then((response) => {
             if (!response.ok) {
                 return response.json().then((error) => {
-                    handleApiError(error);
+                    // handleApiError(error);
+                    setError(error.message);
                     throw error;
                 });
             }
@@ -130,6 +133,18 @@ function SearchComponent() {
                 state={searchState}
                 searchTerm={searchTerm}
             />
+
+            {error && (
+                <Dialog
+                    message={error}
+                    isOpen={!!error}
+                    onClose={() => setError(null)}
+                    onRefresh={() => {
+                        setError(null);
+                        window.location.href = "/";
+                    }}
+                />
+            )}
         </section>
     );
 }

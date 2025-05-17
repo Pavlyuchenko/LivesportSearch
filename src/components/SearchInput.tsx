@@ -29,7 +29,7 @@ function SearchInput({
                 <input
                     type="text"
                     className={styles["search-input"]}
-                    placeholder="Hledat..."
+                    placeholder="Search..."
                     value={searchTerm}
                     onChange={(e) => {
                         setSearchTerm(e.target.value);
