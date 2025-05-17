@@ -29,7 +29,6 @@ export type SearchStateType = "LOADED" | "LOADING" | "NOT_FOUND" | "ENTER_TEXT";
 
 function SearchComponent() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const navigate = useNavigate();
 
     const [error, setError] = useState<string | null>(null);
 
