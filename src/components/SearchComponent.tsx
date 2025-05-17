@@ -6,7 +6,7 @@ import { getPathFromParams } from "../utils/apiUtils";
 import type { SearchResponse, SportCategory } from "../types/apiTypes";
 import { useEffect, useState } from "react";
 import { transformData } from "../utils/transformData";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Dialog from "./Dialog";
 
 // as specified in the documentation

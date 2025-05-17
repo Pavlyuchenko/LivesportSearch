@@ -7,8 +7,6 @@ function DetailComponent() {
     const location = useLocation();
     const item = location.state?.obj;
     const searchTerm = location.state?.searchTerm;
-    console.log("Item from location state:", item);
-    console.log("Search term from location state:", searchTerm);
 
     if (!item) {
         return <Navigate to="/" />;
