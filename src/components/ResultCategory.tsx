@@ -43,7 +43,7 @@ function SearchCategory({ category }: { category?: SportCategory }) {
 
     return (
         <div
-            className={`styles["category-container"] ${
+            className={`${styles["category-container"]} ${
                 !category ? styles["category-placeholder"] : ""
             }`}
         >
@@ -84,8 +84,8 @@ function SearchCategory({ category }: { category?: SportCategory }) {
                         </>
                     ) : (
                         <>
-                            <CategoryItem title="" image="" type="" />
-                            <CategoryItem title="" image="" type="" />
+                            <CategoryItem title="" image="loading" type="" />
+                            <CategoryItem title="" image="loading" type="" />
                         </>
                     )}
                 </ul>

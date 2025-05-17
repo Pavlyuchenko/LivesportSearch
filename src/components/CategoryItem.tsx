@@ -12,10 +12,10 @@ function CategoryItem({ title, image, type }: ItemProps) {
         <li className={styles["result-item"]}>
             <div
                 className={`${styles["result-image-wrapper"]} ${
-                    !image ? styles["loading-image-wrapper"] : ""
+                    image == "loading" ? styles["loading-image-wrapper"] : ""
                 }`}
             >
-                {image && (
+                {image != "loading" && (
                     <img
                         src={
                             image
