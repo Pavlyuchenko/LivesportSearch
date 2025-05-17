@@ -3,11 +3,16 @@ import styles from "./styles/SearchInput.module.css";
 import searchIcon from "@assets/search-icon.svg";
 import cancelButton from "@assets/cancel.svg";
 
-function SearchInput() {
+interface SearchInputProps {
+    debounceSearch: (value: string) => void;
+}
+
+function SearchInput({ debounceSearch }: SearchInputProps) {
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleClear = () => {
         setSearchTerm("");
+        debounceSearch("");
     };
 
     return (
@@ -21,7 +26,10 @@ function SearchInput() {
                 className={styles["search-input"]}
                 placeholder="Hledat..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    debounceSearch(e.target.value);
+                }}
             />
 
             {searchTerm && (

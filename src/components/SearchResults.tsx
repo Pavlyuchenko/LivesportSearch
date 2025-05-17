@@ -1,7 +1,12 @@
+import type { SportCategory } from "../types/apiTypes";
 import ResultCategory from "./ResultCategory";
 
-function SearchResults() {
-    let categories = [
+interface ResultProps {
+    results: SportCategory[];
+}
+
+function SearchResults({ results }: ResultProps) {
+    /* let categories = [
         {
             title: "Fotbal",
             results: [
@@ -40,16 +45,13 @@ function SearchResults() {
                 id: 3,
             },
         },
-    ];
+    ]; */
 
     return (
         <section>
-            {categories.map(
-                (category, index) =>
-                    category.results.length > 0 && (
-                        <ResultCategory key={index} category={category} />
-                    )
-            )}
+            {results.map((result, index) => (
+                <ResultCategory key={index} category={result} />
+            ))}
         </section>
     );
 }

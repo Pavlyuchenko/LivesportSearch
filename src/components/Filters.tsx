@@ -1,25 +1,32 @@
-import { useState } from "react";
 import styles from "./styles/Filters.module.css";
 
-function Filters() {
-    let filters = ["Vše", "Soutěže", "Týmy"];
-    let [selected, setSelected] = useState(0);
+interface FiltersProps {
+    typeIds: number[];
+    setTypeIds: (typeIds: number[]) => void;
+    typeIdsMap: {
+        [key: string]: {
+            text: string;
+            value: number[];
+        };
+    };
+}
 
+function Filters({ typeIds, setTypeIds, typeIdsMap }: FiltersProps) {
     return (
         <section className={styles["filters-container"]}>
-            {filters.map((filter, index) => (
+            {Object.entries(typeIdsMap).map(([key, { text }]) => (
                 <button
-                    key={index}
+                    key={key}
                     className={
-                        selected === index
+                        typeIds === typeIdsMap[key].value
                             ? `${styles["filter-button"]} ${styles["filter-button-active"]}`
                             : styles["filter-button"]
                     }
                     onClick={() => {
-                        setSelected(index);
+                        setTypeIds(typeIdsMap[key].value);
                     }}
                 >
-                    {filter}
+                    {text}
                 </button>
             ))}
         </section>

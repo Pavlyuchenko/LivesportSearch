@@ -12,6 +12,7 @@ import hokej from "@assets/hokej.svg";
 import rugby from "@assets/rugby.svg";
 import tenis from "@assets/tenis.svg";
 import { useState } from "react";
+import type { SportCategory } from "../types/apiTypes";
 
 const SPORT_ICONS = {
     1: fotbal,
@@ -27,19 +28,11 @@ const SPORT_ICONS = {
 
 type SportId = keyof typeof SPORT_ICONS;
 
-interface CategoryProps {
-    title: string;
-    results: {
-        title: string;
-        image: string;
-        type: string;
-    }[];
-    sport: {
-        id: number;
-    };
+interface CategoryItemProps {
+    category: SportCategory;
 }
 
-function SearchCategory({ category }: { category: CategoryProps }) {
+function SearchCategory({ category }: { category: SportCategory }) {
     function mapSportNameToIcon(sportId: number): string {
         const icon = SPORT_ICONS[sportId as SportId];
         return icon ? icon : fotbal;
@@ -72,7 +65,7 @@ function SearchCategory({ category }: { category: CategoryProps }) {
             </div>
             {collapsed && (
                 <ul className={styles["results-list"]}>
-                    {category.results.map((result, index) => (
+                    {category.entries.map((result, index) => (
                         <CategoryItem
                             key={index}
                             title={result.title}
