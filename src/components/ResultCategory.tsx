@@ -27,24 +27,19 @@ const SPORT_ICONS = {
 
 type SportId = keyof typeof SPORT_ICONS;
 
-function SearchCategory() {
-    let category = {
-        title: "Fotbal",
-        sport: {
-            id: 1,
-        },
-        results: [
-            {
-                title: "FC Barcelona",
-                image: "https://www.livesport.cz/res/image/data/8dhw5vxS-fcDVLdrL.png",
-            },
-            {
-                title: "Manchester United",
-                image: "https://www.livesport.cz/res/image/data/nwSRlyWg-h2pPXz3k.png",
-            },
-        ],
+interface CategoryProps {
+    title: string;
+    results: {
+        title: string;
+        image: string;
+        type: string;
+    }[];
+    sport: {
+        id: number;
     };
+}
 
+function SearchCategory({ category }: { category: CategoryProps }) {
     function mapSportNameToIcon(sportId: number): string {
         const icon = SPORT_ICONS[sportId as SportId];
         return icon ? icon : fotbal;
@@ -78,7 +73,12 @@ function SearchCategory() {
             {collapsed && (
                 <ul className={styles["results-list"]}>
                     {category.results.map((result, index) => (
-                        <CategoryItem key={index} />
+                        <CategoryItem
+                            key={index}
+                            title={result.title}
+                            image={result.image}
+                            type={result.type}
+                        />
                     ))}
                 </ul>
             )}
