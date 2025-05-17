@@ -11,6 +11,7 @@ import hazena from "@assets/hazena.svg";
 import hokej from "@assets/hokej.svg";
 import rugby from "@assets/rugby.svg";
 import tenis from "@assets/tenis.svg";
+import { useState } from "react";
 
 const SPORT_ICONS = {
     1: fotbal,
@@ -49,6 +50,11 @@ function SearchCategory() {
         return icon ? icon : fotbal;
     }
 
+    let [collapsed, setCollapsed] = useState(true);
+    function toggleCollapse() {
+        setCollapsed(!collapsed);
+    }
+
     return (
         <div className={styles["category-container"]}>
             <div className={styles["category-header"]}>
@@ -60,13 +66,22 @@ function SearchCategory() {
                     />
                     <h2>{category.title}</h2>
                 </div>
-                <img src={arrow} alt="Arrow" />
+                <img
+                    src={arrow}
+                    alt="Arrow"
+                    onClick={toggleCollapse}
+                    className={`${styles["category-arrow"]} ${
+                        collapsed ? styles["category-arrow-rotate"] : ""
+                    }`}
+                />
             </div>
-            <ul className={styles["results-list"]}>
-                {category.results.map((result, index) => (
-                    <CategoryItem key={index} />
-                ))}
-            </ul>
+            {collapsed && (
+                <ul className={styles["results-list"]}>
+                    {category.results.map((result, index) => (
+                        <CategoryItem key={index} />
+                    ))}
+                </ul>
+            )}
         </div>
     );
 }

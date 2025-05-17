@@ -32,8 +32,11 @@
 .category-header .category-title img {
     width: 26px;
 }
-.category-header img {
+.category-header .category-arrow {
     cursor: pointer;
+}
+.category-header .category-arrow-rotate {
+    transform: rotate(180deg);
 }
 
 .results-list {
