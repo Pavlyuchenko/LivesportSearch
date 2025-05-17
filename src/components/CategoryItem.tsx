@@ -1,15 +1,23 @@
+import { Link } from "react-router-dom";
 import styles from "./styles/CategoryItem.module.css";
 import qm from "@assets/qm.svg";
+import type { SearchResponse } from "../types/apiTypes";
 
 interface ItemProps {
     title: string;
     image: string;
     type: string;
+    id: string;
+    obj?: SearchResponse;
 }
 
-function CategoryItem({ title, image, type }: ItemProps) {
+function CategoryItem({ title, image, type, id, obj }: ItemProps) {
     return (
-        <li className={styles["result-item"]}>
+        <Link
+            to={`/detail/${id}`}
+            className={styles["result-item"]}
+            state={{ obj }}
+        >
             <div
                 className={`${styles["result-image-wrapper"]} ${
                     image == "loading" ? styles["loading-image-wrapper"] : ""
@@ -34,7 +42,7 @@ function CategoryItem({ title, image, type }: ItemProps) {
                     {type ? type : "Loading..."}
                 </p>
             </div>
-        </li>
+        </Link>
     );
 }
 

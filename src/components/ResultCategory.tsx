@@ -83,14 +83,26 @@ function SearchCategory({ category }: { category?: SportCategory }) {
                                     title={result.title}
                                     image={result.image}
                                     type={result.type}
+                                    id={result.id}
+                                    obj={result.obj}
                                 />
                             ))}
                         </>
                     ) : (
-                        <>
-                            <CategoryItem title="" image="loading" type="" />
-                            <CategoryItem title="" image="loading" type="" />
-                        </>
+                        <div className={styles["loading-placeholder"]}>
+                            <CategoryItem
+                                title=""
+                                image="loading"
+                                type=""
+                                id=""
+                            />
+                            <CategoryItem
+                                title=""
+                                image="loading"
+                                type=""
+                                id=""
+                            />
+                        </div>
                     )}
                 </ul>
             )}

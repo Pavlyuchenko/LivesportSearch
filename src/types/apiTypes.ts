@@ -56,5 +56,7 @@ export interface SportCategory {
         title: string;
         image: string;
         type: string;
+        id: string;
+        obj: SearchResponse;
     }>;
 }

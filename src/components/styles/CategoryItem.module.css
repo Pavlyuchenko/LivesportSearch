@@ -9,6 +9,9 @@
 
     list-style: none;
 
+    text-decoration: none;
+    color: var(--color-white);
+
     cursor: pointer;
 }
 .result-item:hover {

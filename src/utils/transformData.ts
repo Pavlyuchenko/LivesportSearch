@@ -10,6 +10,7 @@ export const transformData = (data: SearchResponse[]): SportCategory[] => {
                 name: string;
                 type: string;
                 image: string;
+                obj: SearchResponse;
             }>;
         }
     > = new Map();
@@ -31,6 +32,7 @@ export const transformData = (data: SearchResponse[]): SportCategory[] => {
             name: item.name,
             type: item.type.name,
             image: image,
+            obj: item,
         });
     }
 
@@ -46,6 +48,8 @@ export const transformData = (data: SearchResponse[]): SportCategory[] => {
                 title: item.name,
                 image: item.image,
                 type: item.type,
+                id: item.id,
+                obj: item.obj, // Keep the original object for detail view
             })),
         });
     });
