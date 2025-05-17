@@ -1,73 +1,56 @@
-import { useParams, useLocation, Navigate } from "react-router-dom";
+import { useLocation, Navigate, Link } from "react-router-dom";
+import styles from "./styles/DetailComponent.module.css";
+import arrow from "@assets/arrow.svg";
 
 function DetailComponent() {
-    const { id } = useParams(); // Get ID from URL
     const location = useLocation();
-    const item = location.state?.obj; // Get full object from state
-    const teamData = item;
+    const item = location.state?.obj;
+    console.log("Item from location state:", item);
+
     if (!item) {
-        // redirect to home if no item is found
         return <Navigate to="/" />;
     }
 
     return (
-        <div>
-            <h1>{item.name}</h1>
-
-            {item ? (
-                <div>
-                    <div>
-                        <h2>Team Highlights</h2>
-                        <div>
-                            <strong>Sport:</strong> {item.sport.name} (
-                            {item.gender.name})
-                        </div>
-                        {item.defaultCountry && (
-                            <div>
-                                <strong>Country:</strong>{" "}
-                                {item.defaultCountry.name}
-                            </div>
-                        )}
-                        <div>
-                            <strong>Team Type:</strong> {item.type.name}
-                        </div>
-                    </div>
-
-                    {item.defaultTournament && (
-                        <div>
-                            <h2>Tournament</h2>
-                            <div>
-                                <strong>Current Tournament:</strong>{" "}
-                                {item.defaultTournament.name}
-                            </div>
-                        </div>
-                    )}
-
-                    {item.images && item.images.length > 0 && (
-                        <div>
-                            <h2>Media</h2>
-                            <div>
-                                <strong>Available Images:</strong>{" "}
-                                {item.images.length}
-                            </div>
-                        </div>
-                    )}
-
-                    {item.participantTypes &&
-                        item.participantTypes.length > 0 && (
-                            <div>
-                                <h2>Participation</h2>
-                                <div>
-                                    <strong>Participant Categories:</strong>{" "}
-                                    {item.participantTypes.length}
-                                </div>
-                            </div>
-                        )}
+        <section className={styles["detail-container"]}>
+            <Link to="/" className={styles["back-button"]}>
+                <span>&lt; Back to search</span>
+            </Link>
+            <div className={styles["breadcrumbs"]}>
+                <span>{item.sport.name}</span>
+                <img src={arrow} alt="" className={styles["arrow-icon"]} />
+                <img
+                    src={`${import.meta.env.VITE_IMAGE_PATH}${
+                        item.defaultCountry?.images[0]?.path
+                    }`}
+                    alt="Country Flag"
+                    className={styles["country-flag"]}
+                />
+                <span>{item.defaultCountry?.name}</span>
+            </div>
+            <div className={styles["team-info"]}>
+                <div className={styles["team-logo-wrapper"]}>
+                    <img
+                        src={`${import.meta.env.VITE_IMAGE_PATH}${
+                            item.images[0]?.path
+                        }`}
+                        alt="Team Logo"
+                    />
                 </div>
-            ) : (
-                <div>Loading...</div>
-            )}
-        </div>
+                <div className={styles["team-info-text"]}>
+                    <h1>{item.name}</h1>
+                    <p>{item.type.name}</p>
+                </div>
+            </div>
+
+            <a
+                href={`https://www.livesport.cz/tym/${item.url}/${item.id}/`}
+                target="_blank"
+                className={styles["more-info-button"]}
+            >
+                Více informací &gt;
+            </a>
+        </section>
     );
 }
 
