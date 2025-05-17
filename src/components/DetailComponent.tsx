@@ -1,6 +1,7 @@
 import { useLocation, Navigate, Link } from "react-router-dom";
 import styles from "./styles/DetailComponent.module.css";
 import arrow from "@assets/arrow.svg";
+import qm from "@assets/qm.svg";
 
 function DetailComponent() {
     const location = useLocation();
@@ -31,9 +32,13 @@ function DetailComponent() {
             <div className={styles["team-info"]}>
                 <div className={styles["team-logo-wrapper"]}>
                     <img
-                        src={`${import.meta.env.VITE_IMAGE_PATH}${
-                            item.images[0]?.path
-                        }`}
+                        src={
+                            item.images.length > 0
+                                ? `${import.meta.env.VITE_IMAGE_PATH}${
+                                      item.images[0].path
+                                  }`
+                                : qm
+                        }
                         alt="Team Logo"
                     />
                 </div>
@@ -48,7 +53,7 @@ function DetailComponent() {
                 target="_blank"
                 className={styles["more-info-button"]}
             >
-                Více informací &gt;
+                More information &gt;
             </a>
         </section>
     );
