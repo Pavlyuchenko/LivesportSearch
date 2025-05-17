@@ -10,19 +10,29 @@ interface ItemProps {
 function CategoryItem({ title, image, type }: ItemProps) {
     return (
         <li className={styles["result-item"]}>
-            <div className={styles["result-image-wrappper"]}>
-                <img
-                    src={
-                        image
-                            ? `${import.meta.env.VITE_IMAGE_PATH}${image}`
-                            : qm
-                    }
-                    alt={title}
-                />
+            <div
+                className={`${styles["result-image-wrapper"]} ${
+                    !image ? styles["loading-image-wrapper"] : ""
+                }`}
+            >
+                {image && (
+                    <img
+                        src={
+                            image
+                                ? `${import.meta.env.VITE_IMAGE_PATH}${image}`
+                                : qm
+                        }
+                        alt={title}
+                    />
+                )}
             </div>
             <div className={styles["result-text"]}>
-                <h3>{title}</h3>
-                <p>{type}</p>
+                <h3 className={!title ? styles["loading"] : ""}>
+                    {title ? title : "Loading..."}
+                </h3>
+                <p className={!type ? styles["loading"] : ""}>
+                    {type ? type : "Loading..."}
+                </p>
             </div>
         </li>
     );

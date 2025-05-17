@@ -4,6 +4,27 @@
 
     margin-top: 20px;
 }
+.category-placeholder .category-header {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: var(--color-secondary-2);
+    background: linear-gradient(to right, #14212f 8%, #162434 18%, #14212f 33%);
+    background-size: 1000px 104px;
+    position: relative;
+    overflow: hidden;
+    color: #14212f;
+}
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+    100% {
+        background-position: 468px 0;
+    }
+}
 .category-container:first-child {
     margin-top: 10px;
 }

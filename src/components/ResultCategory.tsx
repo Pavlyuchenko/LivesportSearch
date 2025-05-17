@@ -11,10 +11,12 @@ import hazena from "@assets/hazena.svg";
 import hokej from "@assets/hokej.svg";
 import rugby from "@assets/rugby.svg";
 import tenis from "@assets/tenis.svg";
+import qm from "@assets/qm.svg";
 import { useState } from "react";
 import type { SportCategory } from "../types/apiTypes";
 
 const SPORT_ICONS = {
+    0: qm,
     1: fotbal,
     2: tenis,
     3: basketbal,
@@ -28,11 +30,7 @@ const SPORT_ICONS = {
 
 type SportId = keyof typeof SPORT_ICONS;
 
-interface CategoryItemProps {
-    category: SportCategory;
-}
-
-function SearchCategory({ category }: { category: SportCategory }) {
+function SearchCategory({ category }: { category?: SportCategory }) {
     function mapSportNameToIcon(sportId: number): string {
         const icon = SPORT_ICONS[sportId as SportId];
         return icon ? icon : fotbal;
@@ -44,35 +42,52 @@ function SearchCategory({ category }: { category: SportCategory }) {
     }
 
     return (
-        <div className={styles["category-container"]}>
+        <div
+            className={`styles["category-container"] ${
+                !category ? styles["category-placeholder"] : ""
+            }`}
+        >
             <div className={styles["category-header"]}>
                 <div className={styles["category-title"]}>
-                    <img
-                        src={mapSportNameToIcon(category.sport.id)}
-                        alt="Sport Icon"
-                        className={styles["category-icon"]}
-                    />
-                    <h2>{category.title}</h2>
+                    {category && (
+                        <img
+                            src={mapSportNameToIcon(category.sport.id)}
+                            alt="Sport Icon"
+                            className={styles["category-icon"]}
+                        />
+                    )}
+                    <h2>{category?.title || "Loading"}</h2>
                 </div>
-                <img
-                    src={arrow}
-                    alt="Arrow"
-                    onClick={toggleCollapse}
-                    className={`${styles["category-arrow"]} ${
-                        collapsed ? styles["category-arrow-rotate"] : ""
-                    }`}
-                />
+                {category && (
+                    <img
+                        src={arrow}
+                        alt="Arrow"
+                        onClick={toggleCollapse}
+                        className={`${styles["category-arrow"]} ${
+                            collapsed ? styles["category-arrow-rotate"] : ""
+                        }`}
+                    />
+                )}
             </div>
             {collapsed && (
                 <ul className={styles["results-list"]}>
-                    {category.entries.map((result, index) => (
-                        <CategoryItem
-                            key={index}
-                            title={result.title}
-                            image={result.image}
-                            type={result.type}
-                        />
-                    ))}
+                    {category ? (
+                        <>
+                            {category.entries.map((result, index) => (
+                                <CategoryItem
+                                    key={index}
+                                    title={result.title}
+                                    image={result.image}
+                                    type={result.type}
+                                />
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                            <CategoryItem title="" image="" type="" />
+                            <CategoryItem title="" image="" type="" />
+                        </>
+                    )}
                 </ul>
             )}
         </div>

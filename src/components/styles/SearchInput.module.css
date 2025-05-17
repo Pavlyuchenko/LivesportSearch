@@ -60,3 +60,18 @@
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--color-white);
 }
+
+.search-input-container h1 {
+    color: var(--color-primary-1);
+    font-size: 1.2rem;
+    font-weight: 500;
+
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.search-input-container hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: 20px 0;
+}
