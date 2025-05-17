@@ -4,6 +4,9 @@
 
     margin-top: 20px;
 }
+.category-container:first-child {
+    margin-top: 10px;
+}
 
 .category-header {
     display: flex;

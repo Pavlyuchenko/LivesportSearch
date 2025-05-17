@@ -1,57 +1,29 @@
 import type { SportCategory } from "../types/apiTypes";
 import ResultCategory from "./ResultCategory";
+import type { SearchStateType } from "./SearchComponent";
+import styles from "./styles/SearchResults.module.css";
 
 interface ResultProps {
     results: SportCategory[];
+    state: SearchStateType;
 }
 
-function SearchResults({ results }: ResultProps) {
-    /* let categories = [
-        {
-            title: "Fotbal",
-            results: [
-                {
-                    title: "FC Barcelona",
-                    image: "https://www.livesport.cz/res/image/data/8dhw5vxS-fcDVLdrL.png",
-                    type: "Klub",
-                },
-                {
-                    title: "Manchester United",
-                    image: "https://www.livesport.cz/res/image/data/nwSRlyWg-h2pPXz3k.png",
-                    type: "Klub",
-                },
-            ],
-            sport: {
-                id: 1,
-            },
-        },
-        {
-            title: "Hokej",
-            results: [],
-            sport: {
-                id: 4,
-            },
-        },
-        {
-            title: "Tenis",
-            results: [
-                {
-                    title: "Novak Djokovic",
-                    image: "https://www.livesport.cz/res/image/data/tSfwGCdM-0rY6MEPI.png",
-                    type: "Hráč",
-                },
-            ],
-            sport: {
-                id: 3,
-            },
-        },
-    ]; */
-
+function SearchResults({ results, state }: ResultProps) {
     return (
-        <section>
-            {results.map((result, index) => (
-                <ResultCategory key={index} category={result} />
-            ))}
+        <section className={styles["results-container"]}>
+            {state === "ENTER_TEXT" ? (
+                <p className={styles["message"]}>
+                    Enter at least 2 characters.
+                </p>
+            ) : state === "NOT_FOUND" ? (
+                <p className={styles["message"]}>No results found.</p>
+            ) : state === "LOADING" ? (
+                <p className={styles["message"]}>Loading...</p>
+            ) : (
+                results.map((result, index) => (
+                    <ResultCategory key={index} category={result} />
+                ))
+            )}
         </section>
     );
 }

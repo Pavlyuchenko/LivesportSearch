@@ -3,6 +3,8 @@ main {
     flex-direction: column;
     align-items: center;
 
+    max-height: 100vh;
+
     padding: 50px calc((100% - 45rem) / 2);
     box-sizing: border-box;
 }

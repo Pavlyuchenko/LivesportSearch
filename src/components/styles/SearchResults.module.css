@@ -1,0 +1,12 @@
+.results-container {
+    overflow-y: scroll;
+    scrollbar-color: #0f2d37 var(--color-secondary-2);
+
+    padding: 0 15px 25px 30px;
+}
+
+.results-container:has(.message) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

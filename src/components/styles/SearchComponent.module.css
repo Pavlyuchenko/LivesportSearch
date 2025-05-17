@@ -2,9 +2,15 @@
     background-color: var(--color-secondary-2);
 
     width: 100%;
-    padding: 30px 25px;
+    /* padding: 30px 25px; */
 
     border-radius: var(--border-radius);
+
+    max-height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
 }
 
 .search-component h1 {

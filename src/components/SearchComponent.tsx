@@ -5,29 +5,36 @@ import styles from "./styles/SearchComponent.module.css";
 import { getPathFromParams } from "../utils/apiUtils";
 import { handleApiError } from "./errors/errors";
 import type { SearchResponse, SportCategory } from "../types/apiTypes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { transformData } from "../utils/transformData";
 
 // as specified in the documentation
 const typeIdsMap = {
     ALL: {
-        text: "Vše",
+        text: "All",
         value: [1, 2, 3, 4],
     },
     SOUTEZE: {
-        text: "Soutěže",
+        text: "Competitions",
         value: [1],
     },
     TYMY: {
-        text: "Týmy",
+        text: "Teams",
         value: [2, 3, 4],
     },
 };
 
+export type SearchStateType = "LOADED" | "LOADING" | "NOT_FOUND" | "ENTER_TEXT";
+
 function SearchComponent() {
+    let [searchState, setSearchState] = useState<SearchStateType>("ENTER_TEXT");
+    let [searchTerm, setSearchTerm] = useState<string>("");
     let [results, setResults] = useState<SportCategory[]>([]);
 
     let [typeIds, setTypeIds] = useState<number[]>(typeIdsMap.ALL.value);
+    useEffect(() => {
+        debounceSearch(searchTerm, 0);
+    }, [typeIds]);
 
     function fetchData(searchTerm: string): Promise<SearchResponse[]> {
         let route = getPathFromParams({
@@ -50,41 +57,50 @@ function SearchComponent() {
     let [debounceTimeout, setDebounceTimeout] = useState<NodeJS.Timeout | null>(
         null
     );
-    function debounceSearch(value: string): void {
+    function debounceSearch(value: string, delay: number = 250): void {
         if (value.length <= 1) {
             // set results to empty
-            console.log("Search term too short");
+            setResults([]);
+            setSearchState("ENTER_TEXT");
             return;
         }
 
         // debounce the search
         if (debounceTimeout) {
-            console.log("Clearing timeout");
             clearTimeout(debounceTimeout);
         }
+        setSearchState("LOADING");
+
         setDebounceTimeout(
             setTimeout(() => {
                 fetchData(value).then((data) => {
                     const transformedData = transformData(data);
-                    console.log("Transformed data:", transformedData);
                     setResults(transformedData);
+
+                    if (transformedData.length === 0) {
+                        setSearchState("NOT_FOUND");
+                        return;
+                    }
+                    setSearchState("LOADED");
                 });
                 setDebounceTimeout(null);
-            }, 300)
+            }, delay)
         );
     }
 
     return (
         <section className={styles["search-component"]}>
-            <h1>Vyhledávání</h1>
-            <SearchInput debounceSearch={debounceSearch} />
-            <hr />
+            <SearchInput
+                debounceSearch={debounceSearch}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+            />
             <Filters
                 typeIds={typeIds}
                 setTypeIds={setTypeIds}
                 typeIdsMap={typeIdsMap}
             />
-            <SearchResults results={results} />
+            <SearchResults results={results} state={searchState} />
         </section>
     );
 }
