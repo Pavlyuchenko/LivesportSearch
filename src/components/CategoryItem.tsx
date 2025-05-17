@@ -9,14 +9,15 @@ interface ItemProps {
     type: string;
     id: string;
     obj?: SearchResponse;
+    searchTerm?: string;
 }
 
-function CategoryItem({ title, image, type, id, obj }: ItemProps) {
+function CategoryItem({ title, image, type, id, obj, searchTerm }: ItemProps) {
     return (
         <Link
             to={`/detail/${id}`}
             className={styles["result-item"]}
-            state={{ obj }}
+            state={{ obj, searchTerm }}
         >
             <div
                 className={`${styles["result-image-wrapper"]} ${

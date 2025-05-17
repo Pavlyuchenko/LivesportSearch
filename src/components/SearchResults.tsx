@@ -7,9 +7,10 @@ import noResults from "@assets/no_results.svg";
 interface ResultProps {
     results: SportCategory[];
     state: SearchStateType;
+    searchTerm: string;
 }
 
-function SearchResults({ results, state }: ResultProps) {
+function SearchResults({ results, state, searchTerm }: ResultProps) {
     return (
         <section className={styles["results-container"]}>
             {state === "ENTER_TEXT" ? (
@@ -25,7 +26,11 @@ function SearchResults({ results, state }: ResultProps) {
                 <ResultCategory />
             ) : (
                 results.map((result, index) => (
-                    <ResultCategory key={index} category={result} />
+                    <ResultCategory
+                        key={index}
+                        category={result}
+                        searchTerm={searchTerm}
+                    />
                 ))
             )}
         </section>

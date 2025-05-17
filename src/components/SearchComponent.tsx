@@ -7,6 +7,7 @@ import { handleApiError } from "./errors/errors";
 import type { SearchResponse, SportCategory } from "../types/apiTypes";
 import { useEffect, useState } from "react";
 import { transformData } from "../utils/transformData";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 // as specified in the documentation
 const typeIdsMap = {
@@ -27,14 +28,38 @@ const typeIdsMap = {
 export type SearchStateType = "LOADED" | "LOADING" | "NOT_FOUND" | "ENTER_TEXT";
 
 function SearchComponent() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+
     let [searchState, setSearchState] = useState<SearchStateType>("ENTER_TEXT");
-    let [searchTerm, setSearchTerm] = useState<string>("");
+    let [searchTerm, setSearchTerm] = useState<string>(
+        searchParams.get("q") || ""
+    );
     let [results, setResults] = useState<SportCategory[]>([]);
 
     let [typeIds, setTypeIds] = useState<number[]>(typeIdsMap.ALL.value);
+
+    // Initial load from URL parameters
+    useEffect(() => {
+        if (searchParams.get("q") && searchParams.get("q")!.length > 1) {
+            debounceSearch(searchParams.get("q") || "", 0);
+        }
+    }, []);
+
     useEffect(() => {
         debounceSearch(searchTerm, 0);
     }, [typeIds]);
+
+    // Update URL when search term changes
+    useEffect(() => {
+        if (searchTerm.length > 1) {
+            setSearchParams({ q: searchTerm });
+        } else if (searchTerm.length === 0 && searchParams.has("q")) {
+            // Clear the query parameter if search is empty
+            searchParams.delete("q");
+            setSearchParams(searchParams);
+        }
+    }, [searchTerm, setSearchParams]);
 
     function fetchData(searchTerm: string): Promise<SearchResponse[]> {
         let route = getPathFromParams({
@@ -100,7 +125,11 @@ function SearchComponent() {
                 setTypeIds={setTypeIds}
                 typeIdsMap={typeIdsMap}
             />
-            <SearchResults results={results} state={searchState} />
+            <SearchResults
+                results={results}
+                state={searchState}
+                searchTerm={searchTerm}
+            />
         </section>
     );
 }

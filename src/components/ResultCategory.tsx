@@ -30,7 +30,13 @@ const SPORT_ICONS = {
 
 type SportId = keyof typeof SPORT_ICONS;
 
-function SearchCategory({ category }: { category?: SportCategory }) {
+function SearchCategory({
+    category,
+    searchTerm,
+}: {
+    category?: SportCategory;
+    searchTerm?: string;
+}) {
     function mapSportNameToIcon(sportId: number): string {
         const icon = SPORT_ICONS[sportId as SportId];
         return icon ? icon : fotbal;
@@ -85,6 +91,7 @@ function SearchCategory({ category }: { category?: SportCategory }) {
                                     type={result.type}
                                     id={result.id}
                                     obj={result.obj}
+                                    searchTerm={searchTerm}
                                 />
                             ))}
                         </>

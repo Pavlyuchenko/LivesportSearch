@@ -6,7 +6,9 @@ import qm from "@assets/qm.svg";
 function DetailComponent() {
     const location = useLocation();
     const item = location.state?.obj;
+    const searchTerm = location.state?.searchTerm;
     console.log("Item from location state:", item);
+    console.log("Search term from location state:", searchTerm);
 
     if (!item) {
         return <Navigate to="/" />;
@@ -14,7 +16,7 @@ function DetailComponent() {
 
     return (
         <section className={styles["detail-container"]}>
-            <Link to="/" className={styles["back-button"]}>
+            <Link to={`/?q=${searchTerm}`} className={styles["back-button"]}>
                 <span>&lt; Back to search</span>
             </Link>
             <div className={styles["breadcrumbs"]}>
