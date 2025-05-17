@@ -59,14 +59,18 @@ function SearchCategory({ category }: { category?: SportCategory }) {
                     <h2>{category?.title || "Loading"}</h2>
                 </div>
                 {category && (
-                    <img
-                        src={arrow}
-                        alt="Arrow"
+                    <button
                         onClick={toggleCollapse}
-                        className={`${styles["category-arrow"]} ${
-                            collapsed ? styles["category-arrow-rotate"] : ""
-                        }`}
-                    />
+                        className={styles["category-toggle-button"]}
+                    >
+                        <img
+                            src={arrow}
+                            alt="Arrow"
+                            className={`${styles["category-arrow"]} ${
+                                collapsed ? styles["category-arrow-rotate"] : ""
+                            }`}
+                        />
+                    </button>
                 )}
             </div>
             {collapsed && (
