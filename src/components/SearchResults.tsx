@@ -1,5 +1,4 @@
-import CategoryItem from "./CategoryItem";
-import styles from "./styles/SearchResults.module.css";
+import ResultCategory from "./ResultCategory";
 
 function SearchResults() {
     let categories = [
@@ -33,24 +32,12 @@ function SearchResults() {
 
     return (
         <section>
-            {categories.map((category, index) => (
-                <div className={styles["category-container"]} key={index}>
-                    <div className={styles["category-header"]}>
-                        <h2>{category.title}</h2>
-                    </div>
-                    <ul className={styles["results-list"]}>
-                        {category.results.length > 0 ? (
-                            category.results.map((result, index) => (
-                                <CategoryItem key={index} />
-                            ))
-                        ) : (
-                            <li className={styles["no-results"]}>
-                                Žádné výsledky
-                            </li>
-                        )}
-                    </ul>
-                </div>
-            ))}
+            {categories.map(
+                (category, index) =>
+                    category.results.length > 0 && (
+                        <ResultCategory key={index} />
+                    )
+            )}
         </section>
     );
 }
