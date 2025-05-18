@@ -1,6 +1,5 @@
-import type { SportCategory } from "../types/apiTypes";
+import type { SearchStateType, SportCategory } from "../types/apiTypes";
 import ResultCategory from "./ResultCategory";
-import type { SearchStateType } from "./SearchComponent";
 import styles from "./styles/SearchResults.module.css";
 import noResults from "@assets/no_results.svg";
 

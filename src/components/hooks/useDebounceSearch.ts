@@ -1,10 +1,17 @@
 import { useState } from "react";
-import type { SearchResponse, SportCategory } from "../../types/apiTypes";
+import type {
+    SearchResponse,
+    SearchStateType,
+    SportCategory,
+} from "../../types/apiTypes";
 import { getPathFromParams } from "../../utils/apiUtils";
-import type { SearchStateType } from "../SearchComponent";
 import { transformData } from "../../utils/transformData";
 
-export const useDebounceSearch = () => {
+type useDebounceSearchProps = {
+    onError?: (error: string) => void;
+};
+
+export const useDebounceSearch = ({ onError }: useDebounceSearchProps = {}) => {
     const [debounceTimeout, setDebounceTimeout] =
         useState<NodeJS.Timeout | null>(null);
     const [searchState, setSearchState] =
@@ -21,14 +28,24 @@ export const useDebounceSearch = () => {
             "sport-ids": [1, 2, 3, 4, 5, 6, 7, 8, 9],
         });
 
-        return fetch(route).then((response) => {
-            if (!response.ok) {
-                return response.json().then((error) => {
-                    throw error;
-                });
-            }
-            return response.json() as Promise<SearchResponse[]>;
-        });
+        return fetch(route)
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then((error) => {
+                        if (onError) {
+                            onError(error.message);
+                        }
+                        throw error;
+                    });
+                }
+                return response.json() as Promise<SearchResponse[]>;
+            })
+            .catch((error) => {
+                if (onError) {
+                    onError(error.message);
+                }
+                throw error;
+            });
     }
 
     function debounceSearch(

@@ -1,29 +1,24 @@
+import { TYPE_IDS_MAP } from "../utils/constants";
 import styles from "./styles/Filters.module.css";
 
 interface FiltersProps {
     typeIds: number[];
     setTypeIds: (typeIds: number[]) => void;
-    typeIdsMap: {
-        [key: string]: {
-            text: string;
-            value: number[];
-        };
-    };
 }
 
-function Filters({ typeIds, setTypeIds, typeIdsMap }: FiltersProps) {
+function Filters({ typeIds, setTypeIds }: FiltersProps) {
     return (
         <section className={styles["filters-container"]}>
-            {Object.entries(typeIdsMap).map(([key, { text }]) => (
+            {Object.entries(TYPE_IDS_MAP).map(([key, { text }]) => (
                 <button
                     key={key}
                     className={
-                        typeIds === typeIdsMap[key].value
+                        typeIds === TYPE_IDS_MAP[key].value
                             ? `${styles["filter-button"]} ${styles["filter-button-active"]}`
                             : styles["filter-button"]
                     }
                     onClick={() => {
-                        setTypeIds(typeIdsMap[key].value);
+                        setTypeIds(TYPE_IDS_MAP[key].value);
                     }}
                 >
                     {text}

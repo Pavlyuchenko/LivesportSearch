@@ -2,33 +2,11 @@ import CategoryItem from "./CategoryItem";
 import styles from "./styles/ResultCategory.module.css";
 
 import arrow from "@assets/arrow.svg";
-import americky_fotbal from "@assets/americky_fotbal.svg";
-import basebal from "@assets/basebal.svg";
-import basketbal from "@assets/basketbal.svg";
-import fotbal from "@assets/fotbal.svg";
-import florbal from "@assets/hokej.svg";
-import hazena from "@assets/hazena.svg";
-import hokej from "@assets/hokej.svg";
-import rugby from "@assets/rugby.svg";
-import tenis from "@assets/tenis.svg";
-import qm from "@assets/qm.svg";
+
 import { useState } from "react";
 import type { SportCategory } from "../types/apiTypes";
-
-const SPORT_ICONS = {
-    0: qm,
-    1: fotbal,
-    2: tenis,
-    3: basketbal,
-    4: hokej,
-    5: americky_fotbal,
-    6: basebal,
-    7: hazena,
-    8: rugby,
-    9: florbal,
-} as const;
-
-type SportId = keyof typeof SPORT_ICONS;
+import { SPORT_ICONS, type SportId } from "../utils/constants";
+import qm from "@assets/qm.svg";
 
 function SearchCategory({
     category,
@@ -37,11 +15,13 @@ function SearchCategory({
     category?: SportCategory;
     searchTerm?: string;
 }) {
+    // This function takes a sport ID and returns the corresponding icon.
     function mapSportNameToIcon(sportId: number): string {
         const icon = SPORT_ICONS[sportId as SportId];
-        return icon ? icon : fotbal;
+        return icon ? icon : qm;
     }
 
+    // collapsed is a state variable that determines whether the category is collapsed or expanded.
     let [collapsed, setCollapsed] = useState(true);
     function toggleCollapse() {
         setCollapsed(!collapsed);

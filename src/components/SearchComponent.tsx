@@ -6,36 +6,25 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Dialog from "./Dialog";
 import { useDebounceSearch } from "./hooks/useDebounceSearch";
-
-// as specified in the documentation
-const typeIdsMap = {
-    ALL: {
-        text: "All",
-        value: [1, 2, 3, 4],
-    },
-    SOUTEZE: {
-        text: "Competitions",
-        value: [1],
-    },
-    TYMY: {
-        text: "Teams",
-        value: [2, 3, 4],
-    },
-};
-
-export type SearchStateType = "LOADED" | "LOADING" | "NOT_FOUND" | "ENTER_TEXT";
+import { TYPE_IDS_MAP } from "../utils/constants";
 
 function SearchComponent() {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const { debounceSearch, searchState, results } = useDebounceSearch();
-
     const [error, setError] = useState<string | null>(null);
+
+    const { debounceSearch, searchState, results } = useDebounceSearch({
+        onError: (errorMessage) => setError(errorMessage),
+    });
+
+    const [searchParams, setSearchParams] = useSearchParams();
     let [searchTerm, setSearchTerm] = useState<string>(
         searchParams.get("q") || ""
     );
-    let [typeIds, setTypeIds] = useState<number[]>(typeIdsMap.ALL.value);
+
+    // typeIDs are API parameters for filtering (1, 2, 3, 4)
+    let [typeIds, setTypeIds] = useState<number[]>(TYPE_IDS_MAP.ALL.value);
     let [hasInitialLoad, setHasInitialLoad] = useState(false);
 
+    // Load initial results based on URL parameters
     useEffect(() => {
         if (!hasInitialLoad) {
             if (searchParams.get("q") && searchParams.get("q")!.length > 1) {
@@ -67,11 +56,7 @@ function SearchComponent() {
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
             />
-            <Filters
-                typeIds={typeIds}
-                setTypeIds={setTypeIds}
-                typeIdsMap={typeIdsMap}
-            />
+            <Filters typeIds={typeIds} setTypeIds={setTypeIds} />
             <SearchResults
                 results={results}
                 state={searchState}

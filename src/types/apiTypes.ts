@@ -60,3 +60,5 @@ export interface SportCategory {
         obj: SearchResponse;
     }>;
 }
+
+export type SearchStateType = "LOADED" | "LOADING" | "NOT_FOUND" | "ENTER_TEXT";

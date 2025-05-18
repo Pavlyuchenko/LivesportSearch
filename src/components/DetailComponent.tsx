@@ -1,4 +1,4 @@
-import { useLocation, Navigate, Link, useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import styles from "./styles/DetailComponent.module.css";
 import arrow from "@assets/arrow.svg";
 import qm from "@assets/qm.svg";
@@ -13,6 +13,9 @@ function DetailComponent() {
     const [searchTerm, setSearchTerm] = useState(location.state?.searchTerm);
     let { debounceSearch, results } = useDebounceSearch();
 
+    // If the item is not found in the state, we need to fetch it from the URL params
+    // since no detail API route is provided, we try to use the same search and filter
+    // this is a hack, I don't think we are supposed to do this
     useEffect(() => {
         if (!item) {
             // get q from URL params
@@ -35,7 +38,6 @@ function DetailComponent() {
             for (const category of results) {
                 for (const item of category.entries) {
                     if (item.id === id) {
-                        console.log(item);
                         setItem(item.obj);
                         break;
                     }
