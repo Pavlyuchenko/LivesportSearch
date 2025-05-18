@@ -4,11 +4,13 @@ Autor: Michal Pavlíček michaelg.pavlicek@gmail.com
 
 ## Popis
 
-Tato aplikace je napsána v React s Typescriptem a obsahuje 2 obrazovky: vyhledávání a výsledky.
+Tato aplikace je napsána v React s Typescriptem a React Router DOM a obsahuje 2 obrazovky: vyhledávání a výsledky.
 
 Vyhledávání oproti zadání neobsahuje tlačítko "Hledat" a je místo toho realizováno pomocí "debounce". Po napsání znaku se čeká 300ms než je dotaz odeslán. Jinak tato obrazovka obsahuje filtraci, zobrazuje skeleton při načítání a zobrazuje chybovou hlášku v případě, že se nepodaří načíst data. Po kliknutí na řádek se uživatel dostane na detail řádku.
 
-Jelikož nebyl k dispozici route pro detail, jsou data poslány komponentu Detail. Pokud by uživatel přímo zadal URL do prohlížeče, jsou data stáhnuta z vyhledávacího routu.
+Jelikož nebyl v zadání uveden API route pro detail, jsou data při kliknutí na řádek poslány komponentu Detail. Pokud by uživatel přímo zadal URL do prohlížeče, jsou data stáhnuta z vyhledávacího routu (při chybě je směrován na "/").
+
+Hlavní soubory se nacházejí v `src/app/routes`.
 
 ## Testy
 
