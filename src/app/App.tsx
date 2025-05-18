@@ -1,9 +1,9 @@
-import "./App.module.css";
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SearchComponent from "../components/SearchComponent";
+
 import styles from "./App.module.css";
-import DetailComponent from "../components/DetailComponent";
+
+import SearchComponent from "./routes/SearchComponent";
+import DetailComponent from "./routes/DetailComponent";
 
 function App() {
     return (

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+
 import styles from "./styles/CategoryItem.module.css";
+
 import qm from "@assets/qm.svg";
 import type { SearchResponse } from "../types/apiTypes";
 
@@ -8,8 +10,8 @@ interface ItemProps {
     image: string;
     type: string;
     id: string;
-    obj?: SearchResponse;
-    searchTerm?: string;
+    obj?: SearchResponse; // for passing the object to the detail page
+    searchTerm?: string; // for passing the search term to the detail page
 }
 
 function CategoryItem({ title, image, type, id, obj, searchTerm }: ItemProps) {

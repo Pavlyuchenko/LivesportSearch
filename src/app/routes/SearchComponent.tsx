@@ -1,18 +1,20 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
+import styles from "./styles/SearchComponent.module.css";
+
 import SearchInput from "@components/SearchInput";
 import SearchResults from "@components/SearchResults";
 import Filters from "@components/Filters";
-import styles from "./styles/SearchComponent.module.css";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import Dialog from "./Dialog";
-import { useDebounceSearch } from "./hooks/useDebounceSearch";
-import { TYPE_IDS_MAP } from "../utils/constants";
+import Dialog from "@components/Dialog";
+import useDebounceSearch from "@hooks/useDebounceSearch";
+import TYPE_IDS_MAP from "@utils/constants";
 
 function SearchComponent() {
     const [error, setError] = useState<string | null>(null);
 
     const { debounceSearch, searchState, results } = useDebounceSearch({
-        onError: (errorMessage) => setError(errorMessage),
+        onError: (errorMessage: string) => setError(errorMessage),
     });
 
     const [searchParams, setSearchParams] = useSearchParams();
@@ -25,6 +27,7 @@ function SearchComponent() {
     let [hasInitialLoad, setHasInitialLoad] = useState(false);
 
     // Load initial results based on URL parameters
+    // load results if typeIds changes
     useEffect(() => {
         if (!hasInitialLoad) {
             if (searchParams.get("q") && searchParams.get("q")!.length > 1) {

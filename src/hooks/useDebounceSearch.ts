@@ -1,11 +1,12 @@
 import { useState } from "react";
+
 import type {
     SearchResponse,
     SearchStateType,
     SportCategory,
-} from "../../types/apiTypes";
-import { getPathFromParams } from "../../utils/apiUtils";
-import { transformData } from "../../utils/transformData";
+} from "../types/apiTypes";
+import getPathFromParams from "@utils/apiUtils";
+import transformData from "@utils/transformData";
 
 type useDebounceSearchProps = {
     onError?: (error: string) => void;

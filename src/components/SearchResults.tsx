@@ -1,6 +1,7 @@
+import styles from "./styles/SearchResults.module.css";
+
 import type { SearchStateType, SportCategory } from "../types/apiTypes";
 import ResultCategory from "./ResultCategory";
-import styles from "./styles/SearchResults.module.css";
 import noResults from "@assets/no_results.svg";
 
 interface ResultProps {

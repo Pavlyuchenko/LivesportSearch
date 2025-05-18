@@ -1,4 +1,5 @@
 import styles from "./styles/SearchInput.module.css";
+
 import searchIcon from "@assets/search-icon.svg";
 import cancelButton from "@assets/cancel.svg";
 

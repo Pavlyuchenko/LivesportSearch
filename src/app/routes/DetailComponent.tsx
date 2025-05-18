@@ -1,14 +1,17 @@
+import { useEffect, useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
+
 import styles from "./styles/DetailComponent.module.css";
+
 import arrow from "@assets/arrow.svg";
 import qm from "@assets/qm.svg";
-import { useDebounceSearch } from "./hooks/useDebounceSearch";
-import { useEffect, useState } from "react";
+import useDebounceSearch from "@hooks/useDebounceSearch";
 
 function DetailComponent() {
     const location = useLocation();
     const navigate = useNavigate();
 
+    // this gets passed from the search component to minimize api calls
     const [item, setItem] = useState(location.state?.obj);
     const [searchTerm, setSearchTerm] = useState(location.state?.searchTerm);
     let { debounceSearch, results } = useDebounceSearch();
