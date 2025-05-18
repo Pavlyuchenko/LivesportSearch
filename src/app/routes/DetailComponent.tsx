@@ -78,7 +78,7 @@ function DetailComponent() {
                             className={styles["arrow-icon"]}
                         />
                         <img
-                            src={`${SEARCH_API_URL}${item.defaultCountry?.images[0]?.path}`}
+                            src={`${IMAGE_PATH_API}/${item.defaultCountry?.images[0]?.path}`}
                             alt="Country Flag"
                             className={styles["country-flag"]}
                         />
