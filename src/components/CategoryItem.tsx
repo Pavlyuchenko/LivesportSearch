@@ -15,7 +15,7 @@ interface ItemProps {
 function CategoryItem({ title, image, type, id, obj, searchTerm }: ItemProps) {
     return (
         <Link
-            to={`/detail/${id}`}
+            to={`/detail/${id}?q=${searchTerm}`}
             className={styles["result-item"]}
             state={{ obj, searchTerm }}
         >
