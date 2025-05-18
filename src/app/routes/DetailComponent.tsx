@@ -6,6 +6,7 @@ import styles from "./styles/DetailComponent.module.css";
 import arrow from "@assets/arrow.svg";
 import qm from "@assets/qm.svg";
 import useDebounceSearch from "@hooks/useDebounceSearch";
+import { IMAGE_PATH_API, SEARCH_API_URL } from "../../utils/constants";
 
 function DetailComponent() {
     const location = useLocation();
@@ -77,9 +78,7 @@ function DetailComponent() {
                             className={styles["arrow-icon"]}
                         />
                         <img
-                            src={`${import.meta.env.VITE_IMAGE_PATH}${
-                                item.defaultCountry?.images[0]?.path
-                            }`}
+                            src={`${SEARCH_API_URL}${item.defaultCountry?.images[0]?.path}`}
                             alt="Country Flag"
                             className={styles["country-flag"]}
                         />
@@ -90,9 +89,7 @@ function DetailComponent() {
                             <img
                                 src={
                                     item.images.length > 0
-                                        ? `${import.meta.env.VITE_IMAGE_PATH}${
-                                              item.images[0].path
-                                          }`
+                                        ? `${IMAGE_PATH_API}${item.images[0].path}`
                                         : qm
                                 }
                                 alt="Team Logo"

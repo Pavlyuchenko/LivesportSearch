@@ -4,6 +4,7 @@ import styles from "./styles/CategoryItem.module.css";
 
 import qm from "@assets/qm.svg";
 import type { SearchResponse } from "../types/apiTypes";
+import { IMAGE_PATH_API } from "../utils/constants";
 
 interface ItemProps {
     title: string;
@@ -28,11 +29,7 @@ function CategoryItem({ title, image, type, id, obj, searchTerm }: ItemProps) {
             >
                 {image != "loading" && (
                     <img
-                        src={
-                            image
-                                ? `${import.meta.env.VITE_IMAGE_PATH}${image}`
-                                : qm
-                        }
+                        src={image ? `${IMAGE_PATH_API}${image}` : qm}
                         alt={title}
                     />
                 )}

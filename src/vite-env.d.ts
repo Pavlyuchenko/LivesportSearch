@@ -19,6 +19,8 @@ declare module "@utils/*" {
     >;
     export const SPORT_ICONS: Record<number, string>;
     export type SportId = keyof typeof SPORT_ICONS;
+    export const SEARCH_API_URL: string;
+    export const IMAGE_PATH_API: string;
 }
 
 declare module "@hooks/*" {

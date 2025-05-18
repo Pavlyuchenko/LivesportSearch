@@ -1,4 +1,5 @@
 import type { SearchParams } from "../types/apiTypes";
+import { SEARCH_API_URL } from "./constants";
 
 export const getPathFromParams = (params: SearchParams): string => {
     const {
@@ -19,7 +20,7 @@ export const getPathFromParams = (params: SearchParams): string => {
         "sport-ids": sportIds.join(","),
     });
 
-    const apiPath = import.meta.env.VITE_SEARCH_API;
+    const apiPath = SEARCH_API_URL;
 
     return `${apiPath}?${queryParams.toString()}`;
 };

@@ -15,11 +15,11 @@ export const TYPE_IDS_MAP: Record<string, { text: string; value: number[] }> = {
         text: "All",
         value: [1, 2, 3, 4],
     },
-    SOUTEZE: {
+    COMPETITIONS: {
         text: "Competitions",
         value: [1],
     },
-    TYMY: {
+    TEAMS: {
         text: "Teams",
         value: [2, 3, 4],
     },
@@ -39,3 +39,6 @@ export const SPORT_ICONS: Record<number, string> = {
 } as const;
 
 export type SportId = keyof typeof SPORT_ICONS;
+
+export const SEARCH_API_URL = "https://s.livesport.services/api/v2/search";
+export const IMAGE_PATH_API = "https://www.livesport.cz/res/image/data/";
