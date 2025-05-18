@@ -29,24 +29,35 @@ const useDebounceSearch = ({ onError }: useDebounceSearchProps = {}) => {
             "sport-ids": [1, 2, 3, 4, 5, 6, 7, 8, 9],
         });
 
-        return fetch(route)
-            .then((response) => {
-                if (!response.ok) {
-                    return response.json().then((error) => {
-                        if (onError) {
-                            onError(error.message);
+        return fetch(route).then((response) => {
+            if (!response.ok) {
+                return response.json().then((error) => {
+                    if (onError) {
+                        let message = error.message;
+                        switch (response.status) {
+                            case 400:
+                                for (const err of error.errors) {
+                                    message += `: ${err.message},`;
+                                }
+                                break;
+                            case 422:
+                                for (const err of error.errors) {
+                                    message += `: ${err.message},`;
+                                }
+                                console.log("Error details:", message);
+                                break;
+                            case 503:
+                                message += `: ${error.data?.message}`;
+                                break;
                         }
-                        throw error;
-                    });
-                }
-                return response.json() as Promise<SearchResponse[]>;
-            })
-            .catch((error) => {
-                if (onError) {
-                    onError(error.message);
-                }
-                throw error;
-            });
+                        console.log("Error details:", message);
+                        onError(message);
+                    }
+                    throw error;
+                });
+            }
+            return response.json() as Promise<SearchResponse[]>;
+        });
     }
 
     function debounceSearch(
