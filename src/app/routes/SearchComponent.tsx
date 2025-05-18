@@ -8,7 +8,7 @@ import SearchResults from "@components/SearchResults";
 import Filters from "@components/Filters";
 import Dialog from "@components/Dialog";
 import useDebounceSearch from "@hooks/useDebounceSearch";
-import TYPE_IDS_MAP from "@utils/constants";
+import { TYPE_IDS_MAP } from "@utils/constants";
 
 function SearchComponent() {
     const [error, setError] = useState<string | null>(null);

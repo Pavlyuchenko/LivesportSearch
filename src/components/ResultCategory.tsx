@@ -5,7 +5,7 @@ import arrow from "@assets/arrow.svg";
 
 import { useState } from "react";
 import type { SportCategory } from "../types/apiTypes";
-import { SPORT_ICONS, type SportId } from "../utils/constants";
+import { SPORT_ICONS, type SportId } from "@utils/constants";
 import qm from "@assets/qm.svg";
 
 function SearchCategory({

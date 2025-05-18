@@ -13,6 +13,12 @@ declare module "@assets/*" {
 declare module "@utils/*" {
     const util: any;
     export default util;
+    export const TYPE_IDS_MAP: Record<
+        string,
+        { text: string; value: number[] }
+    >;
+    export const SPORT_ICONS: Record<number, string>;
+    export type SportId = keyof typeof SPORT_ICONS;
 }
 
 declare module "@hooks/*" {

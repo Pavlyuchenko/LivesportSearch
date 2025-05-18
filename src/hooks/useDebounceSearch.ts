@@ -5,14 +5,14 @@ import type {
     SearchStateType,
     SportCategory,
 } from "../types/apiTypes";
-import getPathFromParams from "@utils/apiUtils";
-import transformData from "@utils/transformData";
+import { getPathFromParams } from "../utils/apiUtils";
+import { transformData } from "../utils/transformData";
 
 type useDebounceSearchProps = {
     onError?: (error: string) => void;
 };
 
-export const useDebounceSearch = ({ onError }: useDebounceSearchProps = {}) => {
+const useDebounceSearch = ({ onError }: useDebounceSearchProps = {}) => {
     const [debounceTimeout, setDebounceTimeout] =
         useState<NodeJS.Timeout | null>(null);
     const [searchState, setSearchState] =
@@ -88,3 +88,5 @@ export const useDebounceSearch = ({ onError }: useDebounceSearchProps = {}) => {
         results,
     };
 };
+
+export default useDebounceSearch;

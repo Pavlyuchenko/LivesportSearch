@@ -1,6 +1,6 @@
 import styles from "./styles/Filters.module.css";
 
-import { TYPE_IDS_MAP } from "../utils/constants";
+import { TYPE_IDS_MAP } from "@utils/constants";
 
 interface FiltersProps {
     typeIds: number[];
